@@ -1,0 +1,54 @@
+# config.yml for sbx_NCycDB
+
+
+sbx_NCycDB:
+
+
+threads: 4
+
+search.type: usearch # can also be "blast" or 
+
+"diamond"
+
+extension: fastq
+
+seqtype: nucl #or prot
+
+sample.info: /projectnb/talbot-lab-data/NEFI_data/metagenomes/my_project_short/NCyc_si.tsv
+
+output.file:  
+
+
+
+
+# rules file for sbx_NCycDB
+
+
+rule sbx_NCycDB:
+
+
+input:
+
+
+#files required for input
+
+    contig.dir = str(ASSEMBLY_FP/’contigs’/)
+
+                  search.type = Cfg['sbx_NCycDB']['search.type']
+
+          extension =  Cfg['sbx_NCycDB']['extension']
+
+          seqtype =  Cfg['sbx_NCycDB']['seqtype']
+
+          sample.info =  Cfg['sbx_NCycDB']['sample.info']
+
+
+output:
+
+
+          output.file =  Cfg['sbx_NCycDB']['output.file']
+
+
+shell:
+
+"perl NCycProfiler.pl -d {input.contig.dir} -m {input. search.type} -f  {input.extension} -s {input.seqtype}  -si {input. sample.info} -o {output.output.file}
